@@ -1,0 +1,82 @@
+<!-- search results page -->
+<!DOCTYPE html>
+    <html lang="en">
+    <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>Search Results</title>
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+      <style>
+        .petition-card {
+            margin-top: 20px;
+        }
+        .petition-header {
+            background-color: #f8f9fa;
+            padding: 20px;
+            border-radius: 5px;
+        }
+        .petition-body {
+            padding: 20px;
+        }
+        .signature-info {
+            font-size: 1.2em;
+            color: #6c757d;
+        }
+      </style>
+    </head>
+
+
+    <body>
+    <!-- Navigation Bar -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <a class="navbar-brand" href="#">Petitions</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item">
+            <a class="nav-link" href="/">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/create">Create Petition</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/search">Search</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/view-all">All Petitions</a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+
+    <h1>Search Results</h1>
+    <ul>
+      <ui th:each="petition : ${results}">
+        <a th:href="@{/view/{id}(id=${petition.id})}" th:text="${petition.title}">Petition Title</a>
+
+
+
+
+        <div class="container">
+          <div class="row">
+            <div class="container pt-5">
+              <div class="card petition-card">
+                <div class="card-header petition-header">
+                  <h3>Search Results</h3>
+                  <p> </p>
+                </div>
+                <div class="card-body petition-body">
+
+                  <ul>
+                    <ui th:each="petition : ${results}">
+                      <a th:href="@{/view/{id}(id=${petition.id})}" th:text="${petition.title}">Petition Title</a>
+
+
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        </div>
