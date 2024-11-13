@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<head><title>Create Petition</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        .petition-card {
+            margin-top: 20px;
+        }
+        .petition-header {
+            background-color: #f8f9fa;
+            padding: 20px;
+            border-radius: 5px;
+        }
+        .petition-body {
+            padding: 20px;
+        }
+        .signature-info {
+            font-size: 1.2em;
+            color: #6c757d;
+        }
+    </style>
+</head>
+
+<body>
+<!-- Navigation Bar -->
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="#">Petitions</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+                <a class="nav-link" href="/">Home</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/create">Create Petition</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/search">Search</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/view-all">All Petitions</a>
+            </li>
+        </ul>
+    </div>
+</nav>
+
+<!--<h1>Create a New Petition</h1>
+<form action="/create" method="post">
+    <label>Title:</label>
+    <input type="text" name="title" required><br>
+    <label>Description:</label>
+    <textarea name="description" required></textarea><br>
+    <button type="submit">Create Petition</button>
+</form>-->
+
+<div class="container">
+<div class="row">
+   <div class="container pt-5">
+        <div class="card petition-card">
+            <div class="card-header petition-header">
+                <h3>Create a New Petition</h3>
+                <p class="signature-info">Signed by <strong>0</strong> people. Goal: 2,000 signatures.</p>
+            </div>
+            <div class="card-body petition-body">
+
+                <form action="/create" method="post">
+                    <label>Petition Title:</label>
+                    <input type="text" class="form-control" name="title" required><br>
+
+                    <label>Description:</label>
+                    <textarea name="description" class="form-control" required></textarea><br>
+
+
+
+                    <button type="submit"class="btn btn-primary btn-lg btn-block">Create Petition</button>
+                </form>
+                <p>
+                    Please submit your petition detail above. <br>
+                    Please provide as much detail as possible. Petitions must reach 2,000 signatures to be considered by closing date <strong>Dec 1st 2024</strong>.
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+</body>
+</html>
