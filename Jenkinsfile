@@ -16,11 +16,25 @@ pipeline {
             }
         }
 
+                stage('Package') {
+                    steps{
+                       sh 'mvn package'
+                    }
+                }
+
                 stage('Exec') {
                     steps{
                        // sh 'mvn exec:java'
-                       sh 'mvn spring-boot:run -Dspring-boot.run.arguments="server.port=8081"'
+                       sh 'mvn exec:java'
                     }
                 }
             }
+
+            post{
+                success{
+                    archiveArtifacts allowEmptyArchive: true,
+                        artifacts:'**/CT5171_CARoisinsPetition*.jar'
+                }
+            }
+
         }
