@@ -72,6 +72,9 @@
                             <mainClass>org.example.Main</mainClass>
                         </manifest>
                     </archive>
+                    <classesDirectory/>
+                    <outputDirectory/>
+                    <testClassesDirectory/>
                 </configuration>
             </plugin>
 
