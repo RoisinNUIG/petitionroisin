@@ -1,6 +1,8 @@
 pipeline {
     agent any
-
+tools{
+git 'Default'
+}
     stages {
 
         stage ('GetProject') {
@@ -11,8 +13,8 @@ pipeline {
         stage ('Build') {
             steps{
                 sh "mvn clean:clean"
-                sh 'mvn dependency:copy-dependencies'
-                sh 'mvn compiler:compile'
+                //sh 'mvn dependency:copy-dependencies'
+                //sh 'mvn compiler:compile'
             }
         }
 
@@ -22,19 +24,33 @@ pipeline {
                     }
                 }
 
-                stage('Exec') {
-                    steps{
-                       // sh 'mvn exec:java'
-                       sh 'mvn exec:java'
-                    }
-                }
+               // stage('Exec') {
+                 //   steps{
+                    //   sh 'mvn exec:java'
+                   //    sh 'mvn exec:java'
+                    //}
+                //}
+                  stage('Archive') {
+                       steps{
+                          archiveArtifacts allowEmptyArchive: true,
+                              artifacts:'**/CT5171_CARoisinsPetition*.war'
+                     }
+                  }
+                 stage('Deploy') {
+                     steps{
+                        sh 'docker build -f Dockerfile -t myapp . '
+                        sh 'docker rm -f "myappcontainer" || true'
+                        sh 'docker run --name "myappcontainer" -p 8081:8080 --detach myapp:latest'
+                     }
+                 }
+
             }
 
-            post{
-                success{
-                    archiveArtifacts allowEmptyArchive: true,
-                        artifacts:'**/CT5171_CARoisinsPetition*.war'
-                }
-            }
+           // post{
+               // success{
+                  //  archiveArtifacts allowEmptyArchive: true,
+                    //    artifacts:'**/CT5171_CARoisinsPetition*.war'
+               // }
+           // }
 
         }
