@@ -33,7 +33,7 @@ pipeline {
             post{
                 success{
                     archiveArtifacts allowEmptyArchive: true,
-                        artifacts:'**/CT5171_CARoisinsPetition*.jar'
+                        artifacts:'**/CT5171_CARoisinsPetition*.war'
                 }
             }
 
