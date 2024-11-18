@@ -4,12 +4,6 @@ tools{
 git 'Default'
 }
 
-    parameters {
-        string(name: 'DOCKER_USERNAME', defaultValue: 'student', description: 'Enter your Docker Hub username')
-        password(name: 'DOCKER_PASSWORD', defaultValue: 'pass', description: 'Enter your Docker Hub password')
-        booleanParam(name: 'CONSENT', description: 'Are you sure you want to deploy?')
-    }
-
  stages {
 
         stage ('GetProject') {
@@ -44,28 +38,18 @@ git 'Default'
                      }
                   }
 
-                  stage('Docker Login') {
-                              steps {
-                               script {
-                                  echo "Logging into Docker Hub..."
-                                sh """
-                                                        echo '${params.DOCKER_PASSWORD}' | docker login -u '${params.DOCKER_USERNAME}' --password-stdin
-                                                    """
-                                                }
-                                            }
-                                        }
+
                  stage('Deploy') {
-                     when {
-                         expression {params.CONSENT == 'True' }
-                     }
+
                      steps{
                         //script {
                         //echo "Building and deploying Docker container..."
                         //}
+                        sh 'docker login -u <student> -p <pass>'
                         sh 'docker build -f Dockerfile -t myapp . '
                         sh 'docker rm -f "myappcontainer" || true'
                         sh 'docker run --name "myappcontainer" -p 9090:8080 --detach myapp:latest'
-                      }
+                     }
                  }
 
            // post{
@@ -74,5 +58,5 @@ git 'Default'
                     //    artifacts:'**/CT5171_CARoisinsPetition*.war'
                // }
            // }
-}
+        }
 }
