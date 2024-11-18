@@ -46,11 +46,14 @@ git 'Default'
 
                   stage('Docker Login') {
                               steps {
+                               script {
                                   echo "Logging into Docker Hub..."
-                                  echo '${params.DOCKER_PASSWORD}' | docker login -u '${params.DOCKER_USERNAME}' --password-stdin
-                              }
-                  }
-
+                                sh """
+                                                        echo '${params.DOCKER_PASSWORD}' | docker login -u '${params.DOCKER_USERNAME}' --password-stdin
+                                                    """
+                                                }
+                                            }
+                                        }
                  stage('Deploy') {
                      when {
                          expression {params.CONSENT == 'True' }
