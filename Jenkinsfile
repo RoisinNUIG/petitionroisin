@@ -9,7 +9,7 @@ environment {
         DOCKER_PASSWORD = 'your-docker-password'
         DOCKER_IMAGE = 'myapp:latest'
         CONTAINER_NAME = 'myappcontainer'
-}
+        }
 
  stages {
 
@@ -21,8 +21,8 @@ environment {
         stage ('Build') {
             steps{
                 sh "mvn clean:clean"
-
-
+        }
+            }
                 stage('Package') {
                     steps{
                        sh 'mvn package'
@@ -45,7 +45,7 @@ environment {
                                      """
                                  }
                              }
-                         }
+                 }
 
                  stage('Deploy') {
 
@@ -67,5 +67,4 @@ environment {
                // }
            // }
         }
-}
 }
