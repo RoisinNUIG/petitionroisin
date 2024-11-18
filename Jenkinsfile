@@ -42,7 +42,7 @@ parameters {
                               artifacts:'**/CT5171_CARoisinsPetition*.war'
                      }
                   }
-                      stages {
+
                           stage('Confirm Deployment') {
                               steps {
                                   script {
