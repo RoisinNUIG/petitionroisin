@@ -8,7 +8,7 @@ git 'Default'
 
         stage ('GetProject') {
             steps{
-                git branch:'master', url: 'https://github.com/RoisinNUIG/CT5171_CARoisinsPetition.git'
+                git branch:'master', url: 'https://github.com/RoisinNUIG/CT5171CARoisinsPetition.git'
             }
         }
         stage ('Build') {
@@ -34,7 +34,7 @@ git 'Default'
                   stage('Archive') {
                        steps{
                           archiveArtifacts allowEmptyArchive: true,
-                              artifacts:'**/CT5171_CARoisinsPetition*.war'
+                              artifacts:'**/CT5171CARoisinsPetition*.war'
                      }
                   }
 
