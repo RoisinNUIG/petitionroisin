@@ -4,13 +4,22 @@ tools{
 git 'Default'
 }
 
-
-parameters {
+    parameters {
         string(name: 'DOCKER_USERNAME', defaultValue: '', description: 'Enter your Docker Hub username')
         password(name: 'DOCKER_PASSWORD', defaultValue: '', description: 'Enter your Docker Hub password')
         booleanParam(name: 'CONFIRM_DEPLOY', defaultValue: false, description: 'Are you sure you want to deploy?')
     }
+
  stages {
+ stage('Confirm Deployment') {
+             steps {
+                 script {
+                     if (!params.CONFIRM_DEPLOY) {
+                         error("Deployment canceled by the user.")
+                     }
+                 }
+             }
+         }
         stage ('GetProject') {
             steps{
                 git branch:'master', url: 'https://github.com/RoisinNUIG/CT5171_CARoisinsPetition.git'
@@ -43,17 +52,7 @@ parameters {
                      }
                   }
 
-                          stage('Confirm Deployment') {
-                              steps {
-                                  script {
-                                      if (!params.CONFIRM_DEPLOY) {
-                                          error("Deployment canceled by the user.")
-                                      }
-                                  }
-                              }
-                          }
-
-                          stage('Docker Login') {
+                  stage('Docker Login') {
                               steps {
                                   script {
                                       echo "Logging into Docker Hub..."
@@ -63,8 +62,11 @@ parameters {
                                   }
                               }
                           }
+
                  stage('Deploy') {
                      steps{
+                        script {
+                        echo "Building and deploying Docker container..."
                         sh 'docker build -f Dockerfile -t myapp . '
                         sh 'docker rm -f "myappcontainer" || true'
                         sh 'docker run --name "myappcontainer" -p 9090:8080 --detach myapp:latest'
