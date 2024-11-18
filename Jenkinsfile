@@ -3,14 +3,14 @@ pipeline {
 tools{
 git 'Default'
 }
-    stages {
+
 
 parameters {
         string(name: 'DOCKER_USERNAME', defaultValue: '', description: 'Enter your Docker Hub username')
         password(name: 'DOCKER_PASSWORD', defaultValue: '', description: 'Enter your Docker Hub password')
         booleanParam(name: 'CONFIRM_DEPLOY', defaultValue: false, description: 'Are you sure you want to deploy?')
     }
-
+ stages {
         stage ('GetProject') {
             steps{
                 git branch:'master', url: 'https://github.com/RoisinNUIG/CT5171_CARoisinsPetition.git'
