@@ -5,8 +5,8 @@ git 'Default'
 }
 
 environment {
-        DOCKER_USERNAME = 'your-docker-username'
-        DOCKER_PASSWORD = 'your-docker-password'
+        DOCKER_USERNAME = 'student'
+        DOCKER_PASSWORD = 'pass'
         DOCKER_IMAGE = 'myapp:latest'
         CONTAINER_NAME = 'myappcontainer'
         }
