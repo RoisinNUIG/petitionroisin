@@ -4,6 +4,13 @@ tools{
 git 'Default'
 }
 
+environment {
+        DOCKER_USERNAME = 'your-docker-username'
+        DOCKER_PASSWORD = 'your-docker-password'
+        DOCKER_IMAGE = 'myapp:latest'
+        CONTAINER_NAME = 'myappcontainer'
+}
+
  stages {
 
         stage ('GetProject') {
@@ -14,10 +21,7 @@ git 'Default'
         stage ('Build') {
             steps{
                 sh "mvn clean:clean"
-                //sh 'mvn dependency:copy-dependencies'
-                //sh 'mvn compiler:compile'
-            }
-        }
+
 
                 stage('Package') {
                     steps{
@@ -25,12 +29,6 @@ git 'Default'
                     }
                 }
 
-               // stage('Exec') {
-                 //   steps{
-                    //   sh 'mvn exec:java'
-                   //    sh 'mvn exec:java'
-                    //}
-                //}
                   stage('Archive') {
                        steps{
                           archiveArtifacts allowEmptyArchive: true,
@@ -38,6 +36,16 @@ git 'Default'
                      }
                   }
 
+                 stage('Docker Login') {
+                             steps {
+                                 script {
+                                     echo "Logging into Docker Hub..."
+                                     sh """
+                                         echo "${DOCKER_PASSWORD}" | docker login -u "${DOCKER_USERNAME}" --password-stdin
+                                     """
+                                 }
+                             }
+                         }
 
                  stage('Deploy') {
 
