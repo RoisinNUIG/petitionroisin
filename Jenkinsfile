@@ -56,9 +56,9 @@ git 'Default'
                               steps {
                                   script {
                                       echo "Logging into Docker Hub..."
-                                      sh """
+
                                           echo '${params.DOCKER_PASSWORD}' | docker login -u '${params.DOCKER_USERNAME}' --password-stdin
-                                      """
+
                                   }
                               }
                           }
