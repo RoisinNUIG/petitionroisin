@@ -5,6 +5,12 @@ git 'Default'
 }
     stages {
 
+parameters {
+        string(name: 'DOCKER_USERNAME', defaultValue: '', description: 'Enter your Docker Hub username')
+        password(name: 'DOCKER_PASSWORD', defaultValue: '', description: 'Enter your Docker Hub password')
+        booleanParam(name: 'CONFIRM_DEPLOY', defaultValue: false, description: 'Are you sure you want to deploy?')
+    }
+
         stage ('GetProject') {
             steps{
                 git branch:'master', url: 'https://github.com/RoisinNUIG/CT5171_CARoisinsPetition.git'
@@ -36,6 +42,27 @@ git 'Default'
                               artifacts:'**/CT5171_CARoisinsPetition*.war'
                      }
                   }
+                      stages {
+                          stage('Confirm Deployment') {
+                              steps {
+                                  script {
+                                      if (!params.CONFIRM_DEPLOY) {
+                                          error("Deployment canceled by the user.")
+                                      }
+                                  }
+                              }
+                          }
+
+                          stage('Docker Login') {
+                              steps {
+                                  script {
+                                      echo "Logging into Docker Hub..."
+                                      sh """
+                                          echo '${params.DOCKER_PASSWORD}' | docker login -u '${params.DOCKER_USERNAME}' --password-stdin
+                                      """
+                                  }
+                              }
+                          }
                  stage('Deploy') {
                      steps{
                         sh 'docker build -f Dockerfile -t myapp . '
