@@ -7,7 +7,7 @@ tools{
  stages {
         stage ('GetProject') {
             steps{
-                git branch:'master', url: 'https://github.com/RoisinNUIG/CT5171CARoisinsPetition.git'
+                git branch:'master', url: 'https://github.com/RoisinNUIG/peitionroisin.git'
             }
         }
         stage ('Build') {
@@ -24,15 +24,15 @@ tools{
         stage('Archive') {
              steps{
                  archiveArtifacts allowEmptyArchive: true,
-                 artifacts:'**/ct5171caroisinspetition*.war'
+                 artifacts:'**/petitionroisin.war'
         }
              }
 
         stage('Deploy') {
              steps{
-                 sh 'docker build -f Dockerfile -t ct5171caroisinspetition . '
+                 sh 'docker build -f Dockerfile -t petitionroisin . '
                  sh 'docker rm -f "myappcontainer" || true'
-                 sh 'docker run --name "myappcontainer" -p 9090:8080 --detach ct5171caroisinspetition:latest'
+                 sh 'docker run --name "myappcontainer" -p 9090:8080 --detach petitionroisin:latest'
              }
         }
     }
